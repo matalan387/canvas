@@ -5,21 +5,19 @@ const ctx = canvas.getContext('2d');
 const width = canvas.width;
 const height = canvas.height;
 
-// Find the shortest side
-const shortestSide = Math.min(width, height);
-
-// Make square 10x smaller than shortest side
-const squareSize = shortestSide / 10;
-
-// Position the square in the center
+// Position the square at the bottom center of the canvas in the center
+const squareSize = 50;
 const squareX = (width - squareSize) / 2;
-const squareY = (height - squareSize) / 2;
+const squareY = height - squareSize;
+// Clear the canvas
+ctx.clearRect(0, 0, width, height);
 
 // Draw the square
-ctx.fillStyle = 'blue';
+ctx.fillStyle = 'green';
 ctx.fillRect(squareX, squareY, squareSize, squareSize);
 
 // Optionally, draw the canvas border for reference
 ctx.strokeStyle = 'black';
 ctx.lineWidth = 2;
 ctx.strokeRect(0, 0, width, height);
+
