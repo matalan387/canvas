@@ -1,51 +1,25 @@
-const canvas = document.getElementById('firstCanvas');
+const canvas = document.getElementById('mainCanvas');
 const ctx = canvas.getContext('2d');
 
-const center = { x: 300, y: 150 }; // Triangle center
-const size = 100; // Triangle size
-let angle = 0; // In radians
+// Canvas size
+const width = canvas.width;
+const height = canvas.height;
 
-function drawTriangle(x, y, angle) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(angle);
+// Find the shortest side
+const shortestSide = Math.min(width, height);
 
-  ctx.beginPath();
-  ctx.moveTo(0, -size / Math.sqrt(3));           // Top
-  ctx.lineTo(-size / 2, size / (2 * Math.sqrt(3))); // Bottom left
-  ctx.lineTo(size / 2, size / (2 * Math.sqrt(3)));  // Bottom right
-  ctx.closePath();
+// Make square 10x smaller than shortest side
+const squareSize = shortestSide / 10;
 
-  ctx.fillStyle = 'green';
-  ctx.fill();
-  ctx.strokeStyle = 'black';
-  ctx.stroke();
+// Position the square in the center
+const squareX = (width - squareSize) / 2;
+const squareY = (height - squareSize) / 2;
 
-  ctx.restore();
-}
+// Draw the square
+ctx.fillStyle = 'blue';
+ctx.fillRect(squareX, squareY, squareSize, squareSize);
 
-function render() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Optional background rectangle
-  ctx.fillStyle = 'white';
-  ctx.fillRect(50, 50, 200, 100);
-  ctx.strokeStyle = 'black';
-  ctx.lineWidth = 2;
-  ctx.strokeRect(50, 50, 200, 100);
-
-  drawTriangle(center.x, center.y, angle);
-  requestAnimationFrame(render);
-}
-
-document.addEventListener('keydown', (e) => {
-  const rotation = (Math.PI * 2) / 3; // 120 degrees
-
-  if (e.key === 'a' || e.key === 'A') {
-    angle -= rotation;
-  } else if (e.key === 'd' || e.key === 'D') {
-    angle += rotation;
-  }
-});
-
-render(); // Start animation loop
+// Optionally, draw the canvas border for reference
+ctx.strokeStyle = 'black';
+ctx.lineWidth = 2;
+ctx.strokeRect(0, 0, width, height);
